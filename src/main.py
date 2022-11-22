@@ -1,6 +1,8 @@
-from fastapi import FastAPI
+# uvicorn main:app --reload
+
+from fastapi import FastAPI, Query, HTTPException, Path
 from pydantic import BaseModel
-from typing import Optional, Query
+from typing import Optional
 import json
 
 
@@ -48,7 +50,7 @@ def add_person(person: Person):
     new_person = {
         "id": p_id,
         "name": person.name,
-        "age" : person .age,
+        "age" : person.age,
         "gender": person.gender
 
     }
@@ -58,3 +60,34 @@ def add_person(person: Person):
         people = json.dump(people, f)
 
     return new_person
+
+@app.put( '/changePerson', status_code = 204)
+def change_person(person: Person)::
+        new_person = {
+            "id": person.id,
+            "name": person.name,
+            "age" : person.age,
+            "gender": person.gender
+        }
+    person_list = [p for p in people if p['id'] == person.id]
+    if len(person_list) > 0 :
+        people.remove(person_list[0])
+        people.append(new_person)
+        with open('people.json','w') as f:
+            people = json.dump(people, f)
+        return new_person
+
+    else:
+        return HTTPException(status_code=404, detail = f"person with id {person.id} does not exist...")
+        
+
+@app.delete( '/deletePerson/{p_id}'', status_code = 204)
+def delete_person(p_id: int):
+    person = [p for p in people if p['id'] == p_id]
+
+    if len(person) > 0 :
+        people.remove(person[0])
+         with open('people.json','w') as f:
+            people = json.dump(people, f)
+     else:
+        raise HTTPException(status_code=404, detail = f"There is no person with id {p_id} .")
