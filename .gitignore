@@ -8,6 +8,14 @@ data/NGR.geojson
 data/skv.geojson
 src/fastapi-nsi.db
 
+src/data/lu.geojson
+src/data/fields.geojson
+src/data/NGO.geojson
+src/data/ngp.geojson
+src/data/NGR.geojson
+src/data/skv.geojson
+src/fastapi-nsi.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
