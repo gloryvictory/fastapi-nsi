@@ -3,6 +3,7 @@ import uvicorn
 
 
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
 # , Query, HTTPException, Path
 # from typing import Union
@@ -16,10 +17,13 @@ from src.config.settings import database, metadata, engine
 app = FastAPI()
 app.state.database = database
 
-
+# Root API
 @app.get("/")
-def read_root():
-    return {"msg": "Hello it is FastAPI-NSI project"}
+def root() -> JSONResponse:
+    return JSONResponse(status_code=200,
+                        content={
+                            "msg": "Hello it is FastAPI-NSI project"})
+
 @app.on_event("startup")
 async def startup() -> None:
     database_ = app.state.database

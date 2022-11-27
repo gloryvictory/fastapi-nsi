@@ -3,6 +3,8 @@ import sqlalchemy
 
 from time import strftime   # Load just the strftime Module from Time
 
+API_VERSION = "/api/v1"
+
 FILE_LOG_NAME = 'fastapi-nsi'
 FILE_LOG = str(strftime("%Y-%m-%d-%H-%M-%S") + '_' + FILE_LOG_NAME + '.log')
 FILE_LOG_FORMAT = '%(asctime)s %(levelname)s %(message)s'
