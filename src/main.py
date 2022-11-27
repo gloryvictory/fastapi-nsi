@@ -1,7 +1,8 @@
 # uvicorn main:app --reload
 import uvicorn
+
+
 from fastapi import FastAPI
-from src.config.settings import database, metadata, engine
 
 # , Query, HTTPException, Path
 # from typing import Union
@@ -10,14 +11,15 @@ from src.config.settings import database, metadata, engine
 # from typing import Optional
 # import json
 
-app = FastAPI()
+from src.config.settings import database, metadata, engine
 
+app = FastAPI()
 app.state.database = database
+
+
 @app.get("/")
 def read_root():
     return {"msg": "Hello it is FastAPI-NSI project"}
-
-
 @app.on_event("startup")
 async def startup() -> None:
     database_ = app.state.database

@@ -1,6 +1,12 @@
 .idea/
 
-data/
+data/lu.geojson
+data/fields.geojson
+data/NGO.geojson
+data/ngp.geojson
+data/NGR.geojson
+data/skv.geojson
+src/fastapi-nsi.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
