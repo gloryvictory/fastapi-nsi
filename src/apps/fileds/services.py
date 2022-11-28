@@ -17,6 +17,8 @@ def reload_fields():
         with open(file_geojson, 'r', encoding="utf8") as f:
             data = json.load(f)
         print(data)
+
+
     except Exception as e:
         content = {"msg": f"reload fail. can't read file {file_geojson}"}
         print("Exception occurred " + str(e))
