@@ -1,7 +1,7 @@
 from datetime import datetime
 import ormar
 
-from src.config.settings import database, metadata
+from src.config.db import database, metadata
 
 
 class MainMeta(ormar.ModelMeta):
