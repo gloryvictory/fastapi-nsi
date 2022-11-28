@@ -29,7 +29,6 @@ DB_SQLITE = "sqlite:///fastapi-nsi.db"
 
 
 engine = sqlalchemy.create_engine(DB_SQLITE)
-
 metadata = sqlalchemy.MetaData()
 database = databases.Database(DB_SQLITE)
 

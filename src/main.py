@@ -15,7 +15,11 @@ from fastapi.responses import JSONResponse
 from src.config.settings import database, metadata, engine
 
 app = FastAPI()
+
+# metadata.create_all(engine) # for first creatng objects
+
 app.state.database = database
+
 
 # Root API
 @app.get("/")
