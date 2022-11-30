@@ -24,4 +24,4 @@ DB_SQLITE = "sqlite:///fastapi-nsi.db"
 # DB_DSN = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 SERVER_HOST = 'localhost'  # "0.0.0.0"
-SERVER_PORT = '8000'
+SERVER_PORT = 8000
