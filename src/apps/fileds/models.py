@@ -16,4 +16,7 @@ class Fields(ormar.Model):
         
     id: int = ormar.Integer(primary_key=True)
     name_ru: str = ormar.String(max_length=255)
+    lat: float = ormar.Float()
+    lon: float = ormar.Float()
+    guid: str = ormar.String(max_length=255)
     create_date: datetime = ormar.DateTime(default=datetime.now)

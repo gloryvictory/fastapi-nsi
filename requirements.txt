@@ -7,6 +7,7 @@ click-plugins==1.1.1
 cligj==0.7.2
 colorama==0.4.6
 databases==0.6.1
+et-xmlfile==1.1.0
 fastapi==0.87.0
 Fiona==1.8.22
 geopandas==0.12.1
@@ -15,6 +16,7 @@ h11==0.14.0
 idna==3.4
 munch==2.5.0
 numpy==1.23.4
+openpyxl==3.0.10
 ormar==0.12.0
 packaging==21.3
 pandas==1.5.1

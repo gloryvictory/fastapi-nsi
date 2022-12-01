@@ -21,9 +21,10 @@ from src.config import settings
 def reload_fields():
     content = {"message": "reload success"}
     file_geojson = os.path.join(settings.FOLDER_DATA, settings.FILE_FIELDS)
-    FILE_NAME_OUT = 'fields_points.geojson'
+    FILE_NAME_OUT = os.path.join(settings.FOLDER_DATA, 'fields_points.geojson')
     NAME_FIELD = 'name_ru'
-    CRS = 4326 # WGS 84
+    CRS = 4326      # WGS 84
+
     try:
         # with open(file_geojson, 'r', encoding="utf8") as f:
         #     data = json.load(f)
