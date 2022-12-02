@@ -10,6 +10,7 @@ FILE_FIELDS = 'fields_test.geojson'
 
 # FOLDER_IN  = 'C:\\TEMP\\Geodex_files'
 FOLDER_OUT = 'log'
+FOLDER_GEOJSON_OUT = 'geojson'
 FOLDER_DATA = 'C:\\Glory\\Projects\\Python\\zsniigg\\fastapi-nsi\\src\\data'
 
 DB_SQLITE = "sqlite:///fastapi-nsi.db"

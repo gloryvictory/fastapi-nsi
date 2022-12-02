@@ -1,3 +1,6 @@
+# with open(file_geojson, 'r', encoding="utf8") as f:
+#     data = json.load(f)
+
 #  @classmethod
 # def request(url, urllib2=None):
 #         fh = urllib2.urlopen(url)
@@ -15,44 +18,62 @@ import os
 
 import geopandas
 
+from src.apps.fileds.models import Fields
 from src.config import settings
 
+# async def fields_create():
 
-def reload_fields():
+async def reload_fields():
     content = {"message": "reload success"}
     file_geojson = os.path.join(settings.FOLDER_DATA, settings.FILE_FIELDS)
-    FILE_NAME_OUT = os.path.join(settings.FOLDER_DATA, 'fields_points.geojson')
-    NAME_FIELD = 'name_ru'
-    CRS = 4326      # WGS 84
+    folder_geojson = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT)
+    file_geojson_out = os.path.join(folder_geojson, 'fields_points.geojson')
+    print(file_geojson_out)
+    name_field = 'name_ru'
+    crs_out = 4326      # WGS 84
 
     try:
-        # with open(file_geojson, 'r', encoding="utf8") as f:
-        #     data = json.load(f)
+
         gdf = geopandas.read_file(file_geojson, driver="GeoJSON")
-        # print(gdf["name_ru"])
-        # gdf = gdf.explode(ignore_index=True)
         # MultiPolygon to Polygon
         gdf = gdf.explode(column='geometry', ignore_index=True, index_parts=False)
-
-        gdf = gdf.dissolve(by=NAME_FIELD, as_index=False)
+        # Объединяем два контура одного месторождения с одинаковым наименованием
+        gdf = gdf.dissolve(by=name_field, as_index=False)
         # gdf = gdf.convex_hull
-
         gdf['centroid'] = gdf.centroid
-        # gdf_dissolve.to_file("qqq.geojson", driver='GeoJSON')
 
-        gdf = gdf.to_crs(crs=CRS)
+        gdf = gdf.to_crs(crs=crs_out)
 
-        gdf1 = gdf[[NAME_FIELD, 'centroid']]
+        gdf1 = gdf[[name_field, 'centroid']]
         gdf1.set_geometry("centroid")
-        # gdf1.rename_geometry('geom', inplace=True)
         gdf1 = gdf1.rename(columns={'centroid': 'geom'}).set_geometry('geom')
-
         # print(gdf1.geometry.name)
+
+        # gdf1.to_file("test.geojson", driver='GeoJSON')
+        # gdf1.to_excel("test.xlsx")
+        # gdf1.to_file('test.shp')
+        gdf1.to_file(file_geojson_out, driver='GeoJSON')
+        for i in range(0, len(gdf1)):
+            gdf1.loc[i, 'lon'] = gdf1.geometry.centroid.x.iloc[i]
+            gdf1.loc[i, 'lat'] = gdf1.geometry.centroid.y.iloc[i]
+
         print(gdf1)
-        # gdf1.to_file("aaa.geojson", driver='GeoJSON')
-        # gdf1.to_excel("aaa.xlsx")
-        # gdf1.to_file('aaa.shp')
-        gdf1.to_file(FILE_NAME_OUT, driver='GeoJSON')
+
+        # fields_table = Fields()
+        for i in range(0, len(gdf1)):
+
+            # fields_table.name_ru = gdf1.loc[i, 'name_ru']
+            # fields_table.lon = gdf1.loc[i, 'lon']
+            # fields_table.lat = gdf1.loc[i, 'lat']
+            fields_table = await Fields.objects.create(
+                name_ru=gdf1.loc[i, 'name_ru'],
+                lon=gdf1.loc[i, 'lon'],
+                lat=gdf1.loc[i, 'lat']
+            )
+            await fields_table.save()
+            print(gdf1.loc[i, 'name_ru'])
+            # print(gdf1.loc[i, 'lon'])
+            # print(gdf1.loc[i, 'lat'])
         # print(data)
         # for feature in data:
         #     print(feature)
