@@ -1,6 +1,6 @@
 # with open(file_geojson, 'r', encoding="utf8") as f:
 #     data = json.load(f)
-
+import hashlib
 #  @classmethod
 # def request(url, urllib2=None):
 #         fh = urllib2.urlopen(url)
@@ -59,18 +59,31 @@ async def reload_fields():
 
         print(gdf1)
 
-        # fields_table = Fields()
+        await Fields.objects.delete(each=True)
+
         for i in range(0, len(gdf1)):
 
             # fields_table.name_ru = gdf1.loc[i, 'name_ru']
             # fields_table.lon = gdf1.loc[i, 'lon']
             # fields_table.lat = gdf1.loc[i, 'lat']
-            fields_table = await Fields.objects.create(
-                name_ru=gdf1.loc[i, 'name_ru'],
+
+            # fields_table = await Fields.objects.create(
+            #     name_ru=gdf1.loc[i, 'name_ru'],
+            #     lon=gdf1.loc[i, 'lon'],
+            #     lat=gdf1.loc[i, 'lat'],
+            #     hash='',
+            # )
+            str_name = str(gdf1.loc[i, 'name_ru']).encode()
+            hash_object = hashlib.md5(str_name)
+            hash_md5 = hash_object.hexdigest()
+            fields_table =  Fields(
+                name_ru=str_name,
                 lon=gdf1.loc[i, 'lon'],
-                lat=gdf1.loc[i, 'lat']
+                lat=gdf1.loc[i, 'lat'],
+                hash=hash_md5,
             )
-            await fields_table.save()
+            # await fields_table.save()
+            await fields_table.upsert()
             print(gdf1.loc[i, 'name_ru'])
             # print(gdf1.loc[i, 'lon'])
             # print(gdf1.loc[i, 'lat'])

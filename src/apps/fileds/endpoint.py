@@ -14,7 +14,7 @@ async def get_category():
 
 @fields_router.get('/reload')
 async def get_reload():
-    content_json = reload_fields()
+    content_json = await reload_fields()
     return JSONResponse(status_code=200,
                         content=content_json)
 #
