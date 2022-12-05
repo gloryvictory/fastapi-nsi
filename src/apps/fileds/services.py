@@ -1,6 +1,6 @@
 # with open(file_geojson, 'r', encoding="utf8") as f:
 #     data = json.load(f)
-import hashlib
+
 #  @classmethod
 # def request(url, urllib2=None):
 #         fh = urllib2.urlopen(url)
@@ -13,27 +13,25 @@ import hashlib
 # url = "http://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_land.geojson"
 # df = geopandas.read_file(url)
 
-import json
 import os
-
+import hashlib
 import geopandas
+
 
 from src.apps.fileds.models import Fields
 from src.config import settings
+from src.config.log import set_logger
 
-# async def fields_create():
 
 async def reload_fields():
-    content = {"message": "reload success"}
-    file_geojson = os.path.join(settings.FOLDER_DATA, settings.FILE_FIELDS)
-    folder_geojson = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT)
-    file_geojson_out = os.path.join(folder_geojson, 'fields_points.geojson')
-    print(file_geojson_out)
-    name_field = 'name_ru'
-    crs_out = 4326      # WGS 84
+    content = {"msg": "reload success"}
+    file_geojson = os.path.join(os.getcwd(), settings.FOLDER_DATA, settings.FIELDS_FILE_GEOJSON_IN)
+    # folder_geojson = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT)
+    file_geojson_out = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT, settings.FIELDS_FILE_GEOJSON_OUT)
+    name_field = settings.FIELDS_NAME_FIELD # 'name_ru'
+    crs_out = settings.CRS_OUT
 
     try:
-
         gdf = geopandas.read_file(file_geojson, driver="GeoJSON")
         # MultiPolygon to Polygon
         gdf = gdf.explode(column='geometry', ignore_index=True, index_parts=False)
@@ -48,7 +46,6 @@ async def reload_fields():
         gdf1.set_geometry("centroid")
         gdf1 = gdf1.rename(columns={'centroid': 'geom'}).set_geometry('geom')
         # print(gdf1.geometry.name)
-
         # gdf1.to_file("test.geojson", driver='GeoJSON')
         # gdf1.to_excel("test.xlsx")
         # gdf1.to_file('test.shp')
@@ -59,24 +56,16 @@ async def reload_fields():
 
         print(gdf1)
 
+        log = set_logger()
+        log.info(gdf1)
+
         await Fields.objects.delete(each=True)
 
         for i in range(0, len(gdf1)):
-
-            # fields_table.name_ru = gdf1.loc[i, 'name_ru']
-            # fields_table.lon = gdf1.loc[i, 'lon']
-            # fields_table.lat = gdf1.loc[i, 'lat']
-
-            # fields_table = await Fields.objects.create(
-            #     name_ru=gdf1.loc[i, 'name_ru'],
-            #     lon=gdf1.loc[i, 'lon'],
-            #     lat=gdf1.loc[i, 'lat'],
-            #     hash='',
-            # )
             str_name = str(gdf1.loc[i, 'name_ru']).encode()
             hash_object = hashlib.md5(str_name)
             hash_md5 = hash_object.hexdigest()
-            fields_table =  Fields(
+            fields_table = Fields(
                 name_ru=str_name,
                 lon=gdf1.loc[i, 'lon'],
                 lat=gdf1.loc[i, 'lat'],
@@ -84,19 +73,7 @@ async def reload_fields():
             )
             # await fields_table.save()
             await fields_table.upsert()
-            print(gdf1.loc[i, 'name_ru'])
-            # print(gdf1.loc[i, 'lon'])
-            # print(gdf1.loc[i, 'lat'])
-        # print(data)
-        # for feature in data:
-        #     print(feature)
-        #     if len(feature["features"]):
-        #     #     # print(len(data["features"]))
-        #         print(feature["properties"])
-        # str_test = data["features"][0]["name_ru"]
-        # print(str_test)
-
-
+            # print(gdf1.loc[i, 'name_ru'])
 
     except Exception as e:
         content = {"msg": f"reload fail. can't read file {file_geojson}"}

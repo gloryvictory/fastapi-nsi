@@ -6,12 +6,10 @@ FILE_LOG_NAME = 'fastapi-nsi'
 FILE_LOG = str(strftime("%Y-%m-%d-%H-%M-%S") + '_' + FILE_LOG_NAME + '.log')
 FILE_LOG_FORMAT = '%(asctime)s %(levelname)s %(message)s'
 
-FILE_FIELDS = 'fields_test.geojson'
-
 # FOLDER_IN  = 'C:\\TEMP\\Geodex_files'
 FOLDER_OUT = 'log'
 FOLDER_GEOJSON_OUT = 'geojson'
-FOLDER_DATA = 'C:\\Glory\\Projects\\Python\\zsniigg\\fastapi-nsi\\src\\data'
+FOLDER_DATA = 'data'
 
 DB_SQLITE = "sqlite:///fastapi-nsi.db"
 # DB_SCHEMA = 'public'
@@ -26,3 +24,9 @@ DB_SQLITE = "sqlite:///fastapi-nsi.db"
 
 SERVER_HOST = 'localhost'  # "0.0.0.0"
 SERVER_PORT = 8000
+
+CRS_OUT = 4326  # 4326 - WGS 84
+
+FIELDS_FILE_GEOJSON_IN = 'fields_test.geojson'
+FIELDS_FILE_GEOJSON_OUT = 'fields_points.geojson'
+FIELDS_NAME_FIELD = 'name_ru'
