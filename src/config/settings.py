@@ -27,6 +27,6 @@ SERVER_PORT = 8000
 
 CRS_OUT = 4326  # 4326 - WGS 84
 
-FIELDS_FILE_GEOJSON_IN = 'fields_test.geojson'
+FIELDS_FILE_GEOJSON_IN = 'mest.geojson' #'fields_test.geojson'
 FIELDS_FILE_GEOJSON_OUT = 'fields_points.geojson'
 FIELDS_NAME_FIELD = 'name_ru'

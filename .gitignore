@@ -1,11 +1,6 @@
 .idea/
 
-data/lu.geojson
-data/fields.geojson
-data/NGO.geojson
-data/ngp.geojson
-data/NGR.geojson
-data/skv.geojson
+data_load/*
 src/fastapi-nsi.db
 
 src/data/lu.geojson
@@ -145,3 +140,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/src/data/MEST.geojson

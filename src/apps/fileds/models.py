@@ -18,5 +18,6 @@ class Fields(ormar.Model):
     name_ru: str = ormar.String(max_length=255)
     lat: float = ormar.Float(scale=6, precision=8)
     lon: float = ormar.Float(scale=6, precision=8)
+    crs: int = ormar.Integer()
     hash: str = ormar.String(max_length=255 )
     create_date: datetime = ormar.DateTime(default=datetime.now)

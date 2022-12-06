@@ -21,6 +21,9 @@ import geopandas
 from src.apps.fileds.models import Fields
 from src.config import settings
 from src.config.log import set_logger
+import rasterio.warp
+from shapely.geometry import shape
+
 
 
 async def reload_fields():
@@ -53,9 +56,18 @@ async def reload_fields():
         for i in range(0, len(gdf1)):
             gdf1.loc[i, 'lon'] = gdf1.geometry.centroid.x.iloc[i]
             gdf1.loc[i, 'lat'] = gdf1.geometry.centroid.y.iloc[i]
-
-        print(gdf1)
-
+        # gdf1.geometry.to_crs(crs=crs_out)
+        # geometry = rasterio.warp.transform_geom(
+        #     src_crs=4326,
+        #     dst_crs=crs_out,
+        #     geom=gdf1.geometry.values,
+        # )
+        # mercator_world = gdf1.set_geometry(
+        #     [shape(geom) for geom in geometry],
+        #     crs=crs_out,
+        # )
+        # print(gdf1)
+        # print(gdf1.geometry.crs)
         log = set_logger()
         log.info(gdf1)
 
@@ -69,6 +81,7 @@ async def reload_fields():
                 name_ru=str_name,
                 lon=gdf1.loc[i, 'lon'],
                 lat=gdf1.loc[i, 'lat'],
+                crs=crs_out,
                 hash=hash_md5,
             )
             # await fields_table.save()
