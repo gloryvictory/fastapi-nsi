@@ -87,7 +87,8 @@ async def reload_fields():
             # await fields_table.save()
             await fields_table.upsert()
             # print(gdf1.loc[i, 'name_ru'])
-
+        count = await Fields.objects.count()
+        print(f"Count: {count}")
     except Exception as e:
         content = {"msg": f"reload fail. can't read file {file_geojson}"}
         print("Exception occurred " + str(e))
