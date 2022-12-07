@@ -17,11 +17,18 @@ app.include_router(api_router)
 
 
 # Root API
-@app.get("/")
+@app.get("/", status_code=200,
+         name='Главная',
+         tags=['Главная'],
+         description='Получает информацию о сервисе')
 def root() -> JSONResponse:
+    url_swagger = f"http://{settings.SERVER_HOST}:{settings.SERVER_PORT}/docs"
+
     return JSONResponse(status_code=200,
                         content={
-                            "msg": "Hello it is FastAPI-NSI project"})
+                            "msg": "Success",
+                            "Info": "Hello it is FastAPI-NSI project",
+                            "Swagger Document": url_swagger})
 
 
 @app.on_event("startup")
@@ -37,8 +44,6 @@ async def shutdown() -> None:
     database_ = app.state.database
     if database_.is_connected:
         await database_.disconnect()
-
-
 
 
 if __name__ == "__main__":

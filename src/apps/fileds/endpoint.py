@@ -1,24 +1,43 @@
+from typing import List
+
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.apps.fileds.services import reload_fields
+from src.apps.fileds.schemas import Field
+from src.apps.fileds.services import fields_reload, fields_get_all, fields_get_geojson_file
 
 fields_router = APIRouter()
 
 
-@fields_router.get(path='/')
-async def get_category():
-    return JSONResponse(status_code=200,
-                        content={"message": " fields_router success"})
-    # return await models.Category.objects.filter().all()
+@fields_router.get(path='/',
+                   status_code=200,
+                   response_model=List[Field],
+                   name='Получить список Месторождений',
+                   tags=['Месторождения'],
+                   description='Получает список месторождений и координаты центров')
+async def fields_get():
+    content = await fields_get_all()
+    # print(content)
+    return content
 
 
 @fields_router.get(path='/reload',
+                   status_code=200,
                    name='Обновить список Месторождений',
                    tags=['Месторождения'],
                    description='Загружает список месторождений и координаты центров из GeoJSON (файла или сервиса)')
-async def get_reload():
-    content_json = await reload_fields()
-    return JSONResponse(status_code=200,
-                        content=content_json)
+async def fields_reload_get():
+    content_json = await fields_reload()
+    return JSONResponse(content=content_json)
+
+
 #
+@fields_router.get(path='/geojson',
+                   status_code=200,
+                   name='Получить файл в формате GeoJSON',
+                   tags=['Месторождения'],
+                   description='Получить файл в формате GeoJSON')
+async def fields_get_geojson():
+    # content_json = await fields_reload()
+    content_json = await fields_get_geojson_file()
+    return JSONResponse(content=content_json)

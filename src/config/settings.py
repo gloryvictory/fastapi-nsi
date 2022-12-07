@@ -2,8 +2,10 @@ from time import strftime  # Load just the strftime Module from Time
 
 API_VERSION = "/api/v1"
 
+DATETIME_CURRENT = str(strftime("%Y-%m-%d-%H-%M-%S"))
+
 FILE_LOG_NAME = 'fastapi-nsi'
-FILE_LOG = str(strftime("%Y-%m-%d-%H-%M-%S") + '_' + FILE_LOG_NAME + '.log')
+FILE_LOG = DATETIME_CURRENT + '_' + FILE_LOG_NAME + '.log'
 FILE_LOG_FORMAT = '%(asctime)s %(levelname)s %(message)s'
 
 # FOLDER_IN  = 'C:\\TEMP\\Geodex_files'
@@ -28,5 +30,6 @@ SERVER_PORT = 8000
 CRS_OUT = 4326  # 4326 - WGS 84
 
 FIELDS_FILE_GEOJSON_IN = 'fields_test.geojson' # 'mest.geojson'
-FIELDS_FILE_GEOJSON_OUT = 'fields_points.geojson'
+FIELDS_FILE_GEOJSON_OUT = 'fields.geojson'
 FIELDS_NAME_FIELD = 'name_ru'
+FIELDS_FILE_LOG = FIELDS_FILE_GEOJSON_IN + '.log'

@@ -140,4 +140,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/src/data/MEST.geojson
+/src/data/Fields.geojson
+/src/geojson/fields.geojson
+/src/data_load/
