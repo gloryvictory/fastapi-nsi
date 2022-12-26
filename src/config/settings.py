@@ -38,3 +38,8 @@ NGP_FILE_GEOJSON_IN = 'NGP.geojson' # 'mest.geojson'
 NGP_FILE_GEOJSON_OUT = 'NGP.geojson'
 NGP_NAME_FIELD = 'province'
 NGP_FILE_LOG = NGP_FILE_GEOJSON_IN + '.log'
+
+NGO_FILE_GEOJSON_IN = 'NGO.geojson' # 'mest.geojson'
+NGO_FILE_GEOJSON_OUT = 'NGO.geojson'
+NGO_NAME_FIELD = 'region'
+NGO_FILE_LOG = NGO_FILE_GEOJSON_IN + '.log'

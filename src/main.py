@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 
 from src.config import settings
 
-from src.apps.routers import api_router
+from src.apps.base.routers import api_router
 from src.config.db import database, metadata, engine
 
 app = FastAPI()
