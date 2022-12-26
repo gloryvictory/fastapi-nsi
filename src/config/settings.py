@@ -43,3 +43,8 @@ NGO_FILE_GEOJSON_IN = 'NGO.geojson' # 'mest.geojson'
 NGO_FILE_GEOJSON_OUT = 'NGO.geojson'
 NGO_NAME_FIELD = 'region'
 NGO_FILE_LOG = NGO_FILE_GEOJSON_IN + '.log'
+
+NGR_FILE_GEOJSON_IN = 'NGR.geojson' # 'mest.geojson'
+NGR_FILE_GEOJSON_OUT = 'NGR.geojson'
+NGR_NAME_FIELD = 'district'
+NGR_FILE_LOG = NGR_FILE_GEOJSON_IN + '.log'

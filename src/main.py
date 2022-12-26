@@ -13,7 +13,6 @@ app = FastAPI()
 # metadata.create_all(engine) # for first creatng objects
 
 app.state.database = database
-app.include_router(api_router)
 
 
 # Root API
@@ -30,11 +29,11 @@ def root() -> JSONResponse:
                             "Info": "Hello it is FastAPI-NSI project",
                             "Swagger Documentation": url_swagger})
 
-@app.get("/health", description="Health Check", tags=["Health Check"])
-def ping():
-    """Health check."""
-    return {"msg": "pong!"}
 
+
+
+
+app.include_router(api_router)
 
 
 @app.on_event("startup")
