@@ -5,16 +5,16 @@ from typing import Dict, Any
 
 import geopandas
 
-from src.apps.ngo.models import NGO
+from src.apps.lu.models import LU
 from src.config import settings
 from src.config.log import set_logger
 
 
-async def ngo_reload():
+async def lu_reload():
     content = {"msg": "Success"}
-    file_geojson = os.path.join(os.getcwd(), settings.FOLDER_DATA, settings.NGO_FILE_GEOJSON_IN)
-    file_geojson_out = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT, settings.NGO_FILE_GEOJSON_OUT)
-    name_field = settings.NGO_NAME_FIELD  # 'name_ru'
+    file_geojson = os.path.join(os.getcwd(), settings.FOLDER_DATA, settings.LU_FILE_GEOJSON_IN)
+    file_geojson_out = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT, settings.LU_FILE_GEOJSON_OUT)
+    name_field = settings.LU_NAME_FIELD  # 'name_ru'
     crs_out = settings.CRS_OUT
 
     try:
@@ -36,27 +36,28 @@ async def ngo_reload():
         for i in range(0, len(gdf1)):
             gdf1.loc[i, 'lon'] = gdf1.geometry.centroid.x.iloc[i]
             gdf1.loc[i, 'lat'] = gdf1.geometry.centroid.y.iloc[i]
-        log = set_logger(settings.NGO_FILE_LOG)
+        log = set_logger(settings.LU_FILE_LOG)
 
         log.info(gdf1)
 
-        await NGO.objects.delete(each=True)
+        await LU.objects.delete(each=True)
 
         for i in range(0, len(gdf1)):
             str_name = str(gdf1.loc[i, name_field]).encode()
             hash_object = hashlib.md5(str_name)
             hash_md5 = hash_object.hexdigest()
-            ngo_table = NGO(
+            lu_table = LU(
                 name_ru=str_name,
                 lon=gdf1.loc[i, 'lon'],
                 lat=gdf1.loc[i, 'lat'],
                 crs=crs_out,
                 hash=hash_md5,
+                nom_lic=''
             )
-            await ngo_table.upsert()
+            await lu_table.upsert()
             # print(gdf1.loc[i, 'name_ru'])
-        count = await NGO.objects.count()
-        log.info(f"Total ngo count {count}")
+        count = await LU.objects.count()
+        log.info(f"Total LU count {count}")
     except Exception as e:
         content = {"msg": f"reload fail. can't read file {file_geojson}"}
         print("Exception occurred " + str(e))
@@ -66,17 +67,17 @@ async def ngo_reload():
     return content
 
 
-async def ngo_get_all():
+async def lu_get_all():
     content = {"msg": f"Unknown error"}
-    log = set_logger(settings.NGO_FILE_LOG)
+    log = set_logger(settings.LU_FILE_LOG)
 
     try:
-        ngo_all = await NGO.objects.all()
+        lu_all = await LU.objects.all()
 
-        log.info("ngo load successfully")
-        return ngo_all
+        log.info("lu load successfully")
+        return lu_all
     except Exception as e:
-        content = {"msg": f"reload fail. can't read ngo from database {NGO.Meta.tablename}"}
+        content = {"msg": f"reload fail. can't read lu from database {LU.Meta.tablename}"}
         str_err = "Exception occurred " + str(e)
         print(str_err)
         log.info(str_err)
@@ -85,19 +86,19 @@ async def ngo_get_all():
 
 #
 #
-async def ngo_get_all_count() -> dict[str, str | Any] | dict[str, str]:
+async def lu_get_all_count() -> dict[str, str | Any] | dict[str, str]:
     content = {"msg": f"Unknown error"}
-    log = set_logger(settings.NGO_FILE_LOG)
+    log = set_logger(settings.LU_FILE_LOG)
 
     try:
-        # table_exist = ngo.
-        ngo_all_count = await NGO.objects.count()
+        # table_exist = lu.
+        lu_all_count = await LU.objects.count()
 
-        log.info(f"ngo count load successfuly: {ngo_all_count}")
-        content = {"msg": "Success", "count": ngo_all_count}
+        log.info(f"lu count load successfully: {lu_all_count}")
+        content = {"msg": "Success", "count": lu_all_count}
         return content
     except Exception as e:
-        content = {"msg": f"reload fail. can't read count of ngo from database {NGO.Meta.tablename}"}
+        content = {"msg": f"reload fail. can't read count of lu from database {LU.Meta.tablename}"}
         str_err = "Exception occurred " + str(e)
         print(str_err)
         log.info(str_err)
@@ -106,10 +107,10 @@ async def ngo_get_all_count() -> dict[str, str | Any] | dict[str, str]:
 
 #
 #
-async def ngo_get_geojson_file():
+async def lu_get_geojson_file():
     content = {"msg": "Success"}
-    file_geojson_out = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT, settings.NGO_FILE_GEOJSON_OUT)
-    log = set_logger(settings.NGO_FILE_LOG)
+    file_geojson_out = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT, settings.LU_FILE_GEOJSON_OUT)
+    log = set_logger(settings.LU_FILE_LOG)
     log.info(f"Getting file {file_geojson_out}")
     try:
         with open(file_geojson_out, 'r', encoding="utf8") as fp:

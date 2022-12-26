@@ -48,3 +48,8 @@ NGR_FILE_GEOJSON_IN = 'NGR.geojson' # 'mest.geojson'
 NGR_FILE_GEOJSON_OUT = 'NGR.geojson'
 NGR_NAME_FIELD = 'district'
 NGR_FILE_LOG = NGR_FILE_GEOJSON_IN + '.log'
+
+LU_FILE_GEOJSON_IN = 'LU.geojson' # 'mest.geojson'
+LU_FILE_GEOJSON_OUT = 'LU.geojson'
+LU_NAME_FIELD = 'name'
+LU_FILE_LOG = LU_FILE_GEOJSON_IN + '.log'

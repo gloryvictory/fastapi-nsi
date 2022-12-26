@@ -1,6 +1,8 @@
 import json
 import os
 import hashlib
+from typing import Dict, Any
+
 import geopandas
 
 from src.apps.ngp.models import NGP
@@ -85,7 +87,7 @@ async def ngp_get_all():
 
 #
 #
-async def ngp_get_all_count() -> int:
+async def ngp_get_all_count() -> dict[str, str | Any] | dict[str, str]:
     content = {"msg": f"Unknown error"}
     log = set_logger(settings.NGP_FILE_LOG)
 
@@ -93,7 +95,7 @@ async def ngp_get_all_count() -> int:
         # table_exist = ngp.
         ngp_all_count = await NGP.objects.count()
 
-        log.info(f"ngp count load successfuly: {ngp_all_count}")
+        log.info(f"ngp count load successfully: {ngp_all_count}")
         content = {"msg": "Success", "count": ngp_all_count}
         return content
     except Exception as e:

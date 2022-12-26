@@ -1,6 +1,8 @@
 import json
 import os
 import hashlib
+from typing import Dict, Any
+
 import geopandas
 
 from src.apps.fileds.models import Fields
@@ -82,7 +84,7 @@ async def fields_get_all():
     return content
 
 
-async def fields_get_all_count()-> int:
+async def fields_get_all_count()-> dict[str, str | Any] | dict[str, str]:
     content = {"msg": f"Unknown error"}
     log = set_logger(settings.FIELDS_FILE_LOG)
 
