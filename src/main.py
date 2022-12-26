@@ -18,7 +18,7 @@ app.include_router(api_router)
 
 # Root API
 @app.get("/", status_code=200,
-         name='Главная',
+         name='Get Info',
          tags=['Главная'],
          description='Получает информацию о сервисе')
 def root() -> JSONResponse:
@@ -28,7 +28,7 @@ def root() -> JSONResponse:
                         content={
                             "msg": "Success",
                             "Info": "Hello it is FastAPI-NSI project",
-                            "Swagger Document": url_swagger})
+                            "Swagger Documentation": url_swagger})
 
 
 @app.on_event("startup")

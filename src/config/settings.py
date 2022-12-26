@@ -33,3 +33,8 @@ FIELDS_FILE_GEOJSON_IN = 'fields_test.geojson' # 'mest.geojson'
 FIELDS_FILE_GEOJSON_OUT = 'fields.geojson'
 FIELDS_NAME_FIELD = 'name_ru'
 FIELDS_FILE_LOG = FIELDS_FILE_GEOJSON_IN + '.log'
+
+NGP_FILE_GEOJSON_IN = 'NGP.geojson' # 'mest.geojson'
+NGP_FILE_GEOJSON_OUT = 'NGP.geojson'
+NGP_NAME_FIELD = 'province'
+NGP_FILE_LOG = NGP_FILE_GEOJSON_IN + '.log'

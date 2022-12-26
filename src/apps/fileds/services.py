@@ -8,7 +8,6 @@ from src.config import settings
 from src.config.log import set_logger
 
 
-
 async def fields_reload():
     content = {"msg": "Success"}
     file_geojson = os.path.join(os.getcwd(), settings.FOLDER_DATA, settings.FIELDS_FILE_GEOJSON_IN)
@@ -41,7 +40,7 @@ async def fields_reload():
         await Fields.objects.delete(each=True)
 
         for i in range(0, len(gdf1)):
-            str_name = str(gdf1.loc[i, 'name_ru']).encode()
+            str_name = str(gdf1.loc[i, name_field]).encode()
             hash_object = hashlib.md5(str_name)
             hash_md5 = hash_object.hexdigest()
             fields_table = Fields(
@@ -73,14 +72,34 @@ async def fields_get_all():
     try:
         fields_all = await Fields.objects.all()
 
-        log.info("Fields load successfuly")
+        log.info("Fields load successfully")
         return fields_all
     except Exception as e:
-        content = {"msg": f"reload fail. can't read Fields from database"}
+        content = {"msg": f"reload fail. can't read Fields from database {Fields.Meta.tablename}"}
         str_err = "Exception occurred " + str(e)
         print(str_err)
         log.info(str_err)
     return content
+
+
+async def fields_get_all_count()-> int:
+    content = {"msg": f"Unknown error"}
+    log = set_logger(settings.FIELDS_FILE_LOG)
+
+    try:
+        # table_exist = Fields.
+        fields_all_count = await Fields.objects.count()
+
+        log.info(f"Fields count load successfuly: {fields_all_count}")
+        content = {"msg": "Success", "count":fields_all_count}
+        return content
+    except Exception as e:
+        content = {"msg": f"reload fail. can't read count of Fields from database {Fields.Meta.tablename}"}
+        str_err = "Exception occurred " + str(e)
+        print(str_err)
+        log.info(str_err)
+    return content
+
 
 async def fields_get_geojson_file():
     content = {"msg": "Success"}
@@ -98,8 +117,6 @@ async def fields_get_geojson_file():
         # print(str_err)
         log.info(str_err)
         return content
-
-
 
 # with open(file_geojson, 'r', encoding="utf8") as f:
 #     data = json.load(f)

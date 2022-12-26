@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
 from src.apps.fileds.schemas import Field
-from src.apps.fileds.services import fields_reload, fields_get_all, fields_get_geojson_file
+from src.apps.fileds.services import fields_reload, fields_get_all, fields_get_geojson_file, fields_get_all_count
 
 fields_router = APIRouter()
 
@@ -18,6 +18,16 @@ fields_router = APIRouter()
 async def fields_get():
     content = await fields_get_all()
     # print(content)
+    return content
+
+
+@fields_router.get(path='/count',
+                   status_code=200,
+                   name='Получить количество Месторождений',
+                   tags=['Месторождения'],
+                   description='Получает количество месторождений')
+async def fields_get_count():
+    content = await fields_get_all_count()
     return content
 
 
