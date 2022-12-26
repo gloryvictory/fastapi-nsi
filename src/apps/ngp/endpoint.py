@@ -4,12 +4,11 @@ from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
 from src.apps.ngp.schemas import NGP
-from src.apps.ngp.services import ngp_reload
+from src.apps.ngp.services import ngp_reload, ngp_get_all, ngp_get_all_count, ngp_get_geojson_file
 
 # from src.apps.fileds.services import ngp_reload, ngp_get_all, ngp_get_geojson_file, ngp_get_all_count
 
 ngp_router = APIRouter()
-
 
 @ngp_router.get(path='/reload',
                    status_code=200,
@@ -30,7 +29,7 @@ async def ngp_reload_get():
                    tags=['НГ Провинции'],
                    description='Получает список НГ Провинций и координаты центров')
 async def ngp_get():
-    content = {} #await ngp_get_all()
+    content = await ngp_get_all()
     # print(content)
     return content
 
@@ -41,7 +40,7 @@ async def ngp_get():
                    tags=['НГ Провинции'],
                    description='Получает количество НГ Провинций')
 async def ngp_get_count():
-    content = {} #await ngp_get_all_count()
+    content = await ngp_get_all_count()
     return content
 
 
@@ -52,6 +51,5 @@ async def ngp_get_count():
                    description='Получить файл в формате GeoJSON')
 async def ngp_get_geojson():
     # content_json = await ngp_reload()
-    content_json = {}
-        # await ngp_get_geojson_file()
+    content_json = await ngp_get_geojson_file()
     return JSONResponse(content=content_json)
