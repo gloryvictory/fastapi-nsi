@@ -30,6 +30,12 @@ def root() -> JSONResponse:
                             "Info": "Hello it is FastAPI-NSI project",
                             "Swagger Documentation": url_swagger})
 
+@app.get("/healt", description="Health Check", tags=["Health Check"])
+def ping():
+    """Health check."""
+    return {"ping": "pong!"}
+
+
 
 @app.on_event("startup")
 async def startup() -> None:
