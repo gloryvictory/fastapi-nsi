@@ -9,12 +9,15 @@ from src.apps.lu.models import LU
 from src.config import settings
 from src.config.log import set_logger
 
+#TODO добавить номер лицензии
+
 
 async def lu_reload():
     content = {"msg": "Success"}
     file_geojson = os.path.join(os.getcwd(), settings.FOLDER_DATA, settings.LU_FILE_GEOJSON_IN)
     file_geojson_out = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT, settings.LU_FILE_GEOJSON_OUT)
     name_field = settings.LU_NAME_FIELD  # 'name_ru'
+    nom_lic = settings.LU_NOM_LIC_FIELD # nom_lic
     crs_out = settings.CRS_OUT
 
     try:
@@ -29,7 +32,7 @@ async def lu_reload():
 
         gdf = gdf.to_crs(crs=crs_out)
 
-        gdf1 = gdf[[name_field, 'centroid']]
+        gdf1 = gdf[[name_field, 'centroid', nom_lic]]
         gdf1.set_geometry("centroid")
         gdf1 = gdf1.rename(columns={'centroid': 'geom'}).set_geometry('geom')
         gdf1.to_file(file_geojson_out, driver='GeoJSON')
@@ -44,6 +47,7 @@ async def lu_reload():
 
         for i in range(0, len(gdf1)):
             str_name = str(gdf1.loc[i, name_field]).encode()
+            str_nom_lic= str(gdf1.loc[i, nom_lic]).encode()
             hash_object = hashlib.md5(str_name)
             hash_md5 = hash_object.hexdigest()
             lu_table = LU(
@@ -52,7 +56,7 @@ async def lu_reload():
                 lat=gdf1.loc[i, 'lat'],
                 crs=crs_out,
                 hash=hash_md5,
-                nom_lic=''
+                nom_lic=str_nom_lic
             )
             await lu_table.upsert()
             # print(gdf1.loc[i, 'name_ru'])
