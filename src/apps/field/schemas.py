@@ -1,4 +1,4 @@
-from src.apps.base.schemas import BaseModel_NSI
+from ..base.schemas import BaseModel_NSI
 
 
 class Field(BaseModel_NSI):

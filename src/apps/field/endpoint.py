@@ -3,8 +3,8 @@ from typing import List
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.apps.fileds.schemas import Field
-from src.apps.fileds.services import fields_reload, fields_get_all, fields_get_geojson_file, fields_get_all_count
+from ..field.schemas import Field
+from ..field.services import fields_reload, fields_get_all, fields_get_geojson_file, fields_get_all_count
 
 fields_router = APIRouter()
 

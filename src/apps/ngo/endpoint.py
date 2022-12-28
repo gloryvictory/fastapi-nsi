@@ -6,7 +6,7 @@ from starlette.responses import JSONResponse
 from src.apps.ngo.schemas import  NGO
 from src.apps.ngo.services import ngo_reload, ngo_get_all, ngo_get_all_count, ngo_get_geojson_file
 
-# from src.apps.fileds.services import ngo_reload, ngo_get_all, ngo_get_geojson_file, ngo_get_all_count
+# from src.apps.field.services import ngo_reload, ngo_get_all, ngo_get_geojson_file, ngo_get_all_count
 
 ngo_router = APIRouter()
 

@@ -3,10 +3,10 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from src.config import settings
+from config import settings
 
-from src.apps.base.routers import api_router
-from src.config.db import database, metadata, engine
+from apps.base.routers import api_router
+from config.db import database, metadata, engine
 
 app = FastAPI()
 # root_path="/api/v1"

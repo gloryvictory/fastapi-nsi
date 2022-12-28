@@ -22,7 +22,7 @@
 #     hash: str = ormar.String(max_length=255)
 #     create_date: datetime = ormar.DateTime(default=datetime.now)
 #
-from src.apps.base.models import BaseClass, MainMeta
+from ..base.models import BaseClass, MainMeta
 
 
 class Fields(BaseClass):
