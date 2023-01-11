@@ -6,8 +6,13 @@ from typing import Dict, Any
 import geopandas
 
 from src.apps.field.models import Fields
+# from .models import Fields
+
 from src.config import settings
 from src.config.log import set_logger
+import src.config.log
+# from ...config import settings
+# from ...config.log import set_logger
 
 
 async def fields_reload():
