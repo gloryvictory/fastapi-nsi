@@ -1,7 +1,7 @@
 import logging as log
 import os
 
-from src.config import settings
+from src import settings
 
 
 def set_logger(file_name_log='log.log'):

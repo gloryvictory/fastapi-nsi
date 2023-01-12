@@ -3,10 +3,10 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from config import settings
+from src import settings
 
-from apps.base.routers import api_router
-from config.db import database, metadata, engine
+from src.routers import api_router
+from src.database import database, metadata, engine
 
 app = FastAPI()
 # root_path="/api/v1"
@@ -30,9 +30,6 @@ def root() -> JSONResponse:
                             "Swagger Documentation": url_swagger})
 
 
-
-
-
 app.include_router(api_router)
 
 
@@ -41,6 +38,7 @@ async def startup() -> None:
     database_ = app.state.database
     metadata.create_all(engine)
     if not database_.is_connected:
+        print(f"connecting... {database_.url}")
         await database_.connect()
 
 

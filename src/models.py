@@ -1,8 +1,7 @@
 from datetime import datetime
 import ormar
 
-# from src.config.db import database, metadata
-from src.config.db import database, metadata
+from src.database import database, metadata
 
 
 class MainMeta(ormar.ModelMeta):
@@ -22,5 +21,36 @@ class BaseClass(ormar.Model):
     crs: int = ormar.Integer()
     hash: str = ormar.String(max_length=255)
     create_date: datetime = ormar.DateTime(default=datetime.now)
+
+
+class Fields(BaseClass):
+    class Meta(MainMeta):
+        tablename = "field"
+        pass
+
+
+class LU(BaseClass):
+    class Meta(MainMeta):
+        tablename = "lu"
+        pass
+    nom_lic: str = ormar.String(max_length=255)
+
+
+class NGO(BaseClass):
+    class Meta(MainMeta):
+        tablename = "ngo"
+        pass
+
+
+class NGP(BaseClass):
+    class Meta(MainMeta):
+        tablename = "ngp"
+        pass
+
+
+class NGR(BaseClass):
+    class Meta(MainMeta):
+        tablename = "ngr"
+        pass
 
 

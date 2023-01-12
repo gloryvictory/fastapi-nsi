@@ -1,13 +1,13 @@
 import json
 import os
 import hashlib
-from typing import Dict, Any
+from typing import Any
 
 import geopandas
 
-from src.apps.lu.models import LU
-from src.config import settings
-from src.config.log import set_logger
+from src.models import LU
+from src import settings
+from src.log import set_logger
 
 #TODO добавить номер лицензии
 

@@ -1,10 +1,10 @@
-import sys
-
 import databases
 import sqlalchemy
 
 # sys.path.append("..")
-import src.config.settings as settings
+# import src.settings as settings
+from src import settings
+
 
 # import settings
 

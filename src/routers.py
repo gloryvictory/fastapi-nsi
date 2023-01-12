@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 
-from ..field.endpoint import fields_router
-from ..lu.endpoint import lu_router
-from ..ngo.endpoint import ngo_router
-from ..ngp.endpoint import ngp_router
-from ..ngr.endpoint import ngr_router
+from src.field.endpoint import fields_router
+from src.lu.endpoint import lu_router
+from src.ngo.endpoint import ngo_router
+from src.ngp.endpoint import ngp_router
+from src.ngr.endpoint import ngr_router
 
 api_router = APIRouter(prefix='/api/v1')
 

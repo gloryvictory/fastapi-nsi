@@ -3,8 +3,8 @@ from typing import List
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.apps.ngr.schemas import NGR
-from src.apps.ngr.services import ngr_reload, ngr_get_all, ngr_get_all_count, ngr_get_geojson_file
+from src.schemas import NGR
+from src.ngr.services import ngr_reload, ngr_get_all, ngr_get_all_count, ngr_get_geojson_file
 
 ngr_router = APIRouter()
 
