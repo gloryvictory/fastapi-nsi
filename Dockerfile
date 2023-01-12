@@ -9,24 +9,28 @@ FROM python:3.10.9-buster
 # set work directory
 WORKDIR /app
 #WORKDIR $WORKDIR
-ENV PYTHONPATH "${PYTHONPATH}:/"
+#ENV PYTHONPATH "${PYTHONPATH}:/app"
 # set env variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PYTHON_VERSION 3.10.9
 ENV PYTHONPATH "${WORKDIR}:${PYTHONPATH}"
 
+ENV SERVER_HOST "0.0.0.0"
+ENV SERVER_PORT 8000
+
 RUN pip3 install -U pip
 
 # install dependencies
 COPY requirements.txt .
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir --upgrade  -r requirements.txt
 
 # copy project
-COPY ./src .
+COPY . .
 
 EXPOSE 8000
 
 # Execute
-CMD ["python", "main.py"]
+#CMD ["python", "main.py"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

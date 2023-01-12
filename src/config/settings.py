@@ -1,3 +1,4 @@
+import os
 from time import strftime  # Load just the strftime Module from Time
 
 API_VERSION = "/api/v1"
@@ -24,8 +25,9 @@ DB_SQLITE = "sqlite:///fastapi-nsi.db"
 # postgresql://udatauser2:udatauser2pwd@localhost:5432/udatadb2
 # DB_DSN = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
-SERVER_HOST = 'localhost'  # "0.0.0.0"
-SERVER_PORT = 8000
+SERVER_HOST = os.getenv("SERVER_HOST", "0.0.0.0")
+SERVER_PORT = os.getenv("SERVER_PORT", 8000)
+
 
 CRS_OUT = 4326  # 4326 - WGS 84
 
