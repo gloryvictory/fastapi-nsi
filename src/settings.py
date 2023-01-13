@@ -10,6 +10,7 @@ FILE_LOG = DATETIME_CURRENT + '_' + FILE_LOG_NAME + '.log'
 FILE_LOG_FORMAT = '%(asctime)s %(levelname)s %(message)s'
 
 # FOLDER_IN  = 'C:\\TEMP\\Geodex_files'
+FOLDER_BASE = os.getenv("FOLDER_BASE", "C:\\Glory\\Projects\\Python\\zsniigg\\fastapi-nsi\\src")
 FOLDER_OUT = 'log'
 FOLDER_GEOJSON_OUT = 'geojson'
 FOLDER_DATA = 'data'

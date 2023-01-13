@@ -14,8 +14,8 @@ from src.log import set_logger
 
 async def lu_reload():
     content = {"msg": "Success"}
-    file_geojson = os.path.join(os.getcwd(), settings.FOLDER_DATA, settings.LU_FILE_GEOJSON_IN)
-    file_geojson_out = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT, settings.LU_FILE_GEOJSON_OUT)
+    file_geojson = os.path.join(settings.FOLDER_BASE, settings.FOLDER_DATA, settings.LU_FILE_GEOJSON_IN)
+    file_geojson_out = os.path.join(settings.FOLDER_BASE, settings.FOLDER_GEOJSON_OUT, settings.LU_FILE_GEOJSON_OUT)
     name_field = settings.LU_NAME_FIELD  # 'name_ru'
     nom_lic = settings.LU_NOM_LIC_FIELD # nom_lic
     crs_out = settings.CRS_OUT
@@ -113,7 +113,7 @@ async def lu_get_all_count() -> dict[str, str | Any] | dict[str, str]:
 #
 async def lu_get_geojson_file():
     content = {"msg": "Success"}
-    file_geojson_out = os.path.join(os.getcwd(), settings.FOLDER_GEOJSON_OUT, settings.LU_FILE_GEOJSON_OUT)
+    file_geojson_out = os.path.join(settings.FOLDER_BASE, settings.FOLDER_GEOJSON_OUT, settings.LU_FILE_GEOJSON_OUT)
     log = set_logger(settings.LU_FILE_LOG)
     log.info(f"Getting file {file_geojson_out}")
     try:

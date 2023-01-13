@@ -20,6 +20,8 @@ WORKDIR /app
 ENV PYTHONPATH="${PYTHONPATH}:/app"
 ENV SERVER_HOST="0.0.0.0"
 ENV PORT=8000
+ENV FOLDER_BASE=/app/src
+
 
 RUN pip3 install -U pip
 
