@@ -14,6 +14,7 @@ class BaseClass(ormar.Model):
         abstract = True
         # tablename = "Fields"
         pass
+
     id: int = ormar.Integer(primary_key=True)
     name_ru: str = ormar.String(max_length=255)
     lat: float = ormar.Float(scale=6, precision=8)
@@ -23,7 +24,7 @@ class BaseClass(ormar.Model):
     create_date: datetime = ormar.DateTime(default=datetime.now)
 
 
-class Fields(BaseClass):
+class Field(BaseClass):
     class Meta(MainMeta):
         tablename = "field"
         pass
@@ -33,6 +34,7 @@ class LU(BaseClass):
     class Meta(MainMeta):
         tablename = "lu"
         pass
+
     nom_lic: str = ormar.String(max_length=255)
 
 
@@ -54,3 +56,9 @@ class NGR(BaseClass):
         pass
 
 
+class WELL(BaseClass):
+    class Meta(MainMeta):
+        tablename = "well"
+        pass
+
+    area: str = ormar.String(max_length=255)

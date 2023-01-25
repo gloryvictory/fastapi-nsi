@@ -6,7 +6,7 @@ from typing import Any
 
 
 from src import settings
-from src.models import Fields
+from src.models import Field
 from src.log import set_logger
 
 
@@ -41,13 +41,13 @@ async def fields_reload():
 
         log.info(gdf1)
 
-        await Fields.objects.delete(each=True)
+        await Field.objects.delete(each=True)
 
         for i in range(0, len(gdf1)):
             str_name = str(gdf1.loc[i, name_field]).encode()
             hash_object = hashlib.md5(str_name)
             hash_md5 = hash_object.hexdigest()
-            fields_table = Fields(
+            fields_table = Field(
                 name_ru=str_name,
                 lon=gdf1.loc[i, 'lon'],
                 lat=gdf1.loc[i, 'lat'],
@@ -57,7 +57,7 @@ async def fields_reload():
             # await fields_table.save()
             await fields_table.upsert()
             # print(gdf1.loc[i, 'name_ru'])
-        count = await Fields.objects.count()
+        count = await Field.objects.count()
         log.info(f"Total count {count}")
         # print(f"Count: {count}")
     except Exception as e:
@@ -74,12 +74,12 @@ async def fields_get_all():
     log = set_logger(settings.FIELDS_FILE_LOG)
 
     try:
-        fields_all = await Fields.objects.all()
+        fields_all = await Field.objects.all()
 
         log.info("Fields load successfully")
         return fields_all
     except Exception as e:
-        content = {"msg": f"reload fail. can't read Fields from database {Fields.Meta.tablename}"}
+        content = {"msg": f"reload fail. can't read Fields from database {Field.Meta.tablename}"}
         str_err = "Exception occurred " + str(e)
         print(str_err)
         log.info(str_err)
@@ -92,13 +92,13 @@ async def fields_get_all_count()-> dict[str, str | Any] | dict[str, str]:
 
     try:
         # table_exist = Fields.
-        fields_all_count = await Fields.objects.count()
+        fields_all_count = await Field.objects.count()
 
         log.info(f"Fields count load successfuly: {fields_all_count}")
         content = {"msg": "Success", "count":fields_all_count}
         return content
     except Exception as e:
-        content = {"msg": f"reload fail. can't read count of Fields from database {Fields.Meta.tablename}"}
+        content = {"msg": f"reload fail. can't read count of Fields from database {Field.Meta.tablename}"}
         str_err = "Exception occurred " + str(e)
         print(str_err)
         log.info(str_err)

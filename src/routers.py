@@ -5,6 +5,7 @@ from src.lu.endpoint import lu_router
 from src.ngo.endpoint import ngo_router
 from src.ngp.endpoint import ngp_router
 from src.ngr.endpoint import ngr_router
+from src.well.endpoint import well_router
 
 api_router = APIRouter(prefix='/api/v1')
 
@@ -20,3 +21,4 @@ api_router.include_router(ngp_router, prefix="/ngp", tags=["НГ Провинц�
 api_router.include_router(ngo_router, prefix="/ngo", tags=["НГ Области"])  # , description=''
 api_router.include_router(ngr_router, prefix="/ngr", tags=["НГ Районы"])  # , description=''
 api_router.include_router(lu_router, prefix="/lu", tags=["Лицензионные участки"])  # , description=''
+api_router.include_router(well_router, prefix="/well", tags=["Скважины"])  # , description=''

@@ -20,11 +20,11 @@ DB_SQLITE = "sqlite:///fastapi-nsi.db"
 # DB_HOST = 'localhost'
 # DB_PORT = '5432'
 # DB_USER = 'geodex2'
-# DB_PASSWORD = 'geodex2_password'
+# DB_PASS = 'geodex2_password'
 # DB_NAME = 'geodex2'
 # DB_SCHEMA = 'geodex2'
 # postgresql://udatauser2:udatauser2pwd@localhost:5432/udatadb2
-# DB_DSN = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+# DB_DSN = f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 SERVER_HOST = os.getenv("SERVER_HOST", "0.0.0.0")
 SERVER_PORT = os.getenv("SERVER_PORT", 8000)
@@ -58,8 +58,8 @@ LU_FILE_LOG = LU_FILE_GEOJSON_IN + '.log'
 LU_NAME_FIELD = 'name'
 LU_NOM_LIC_FIELD = 'nom_lic'
 
-SKV_FILE_GEOJSON_IN = 'SKV.geojson' # 'mest.geojson'
-SKV_FILE_GEOJSON_OUT = 'SKV.geojson'
-SKV_FILE_LOG = SKV_FILE_GEOJSON_IN + '.log'
-SKV_NAME_FIELD = 'well_name'
-SKV_NAME_AREA_FIELD = 'pl'
+WELL_FILE_GEOJSON_IN = 'WELL.geojson' # 'mest.geojson'
+WELL_FILE_GEOJSON_OUT = 'WELL.geojson'
+WELL_FILE_LOG = WELL_FILE_GEOJSON_IN + '.log'
+WELL_NAME_FIELD = 'well_name'
+WELL_NAME_AREA_FIELD = 'pl'
