@@ -11,7 +11,7 @@ from src.log import set_logger
 
 
 async def well_reload():
-    content = {"msg": "Success"}
+    content = {"msg": "Fail"}
     file_geojson = os.path.join(settings.FOLDER_BASE, settings.FOLDER_DATA, settings.WELL_FILE_GEOJSON_IN)
     file_geojson_out = os.path.join(settings.FOLDER_BASE, settings.FOLDER_GEOJSON_OUT, settings.WELL_FILE_GEOJSON_OUT)
     name_well = settings.WELL_NAME_FIELD  # 'name_ru'
@@ -34,9 +34,12 @@ async def well_reload():
         # gdf1.set_geometry("centroid")
         # gdf1 = gdf1.rename(columns={'centroid': 'geom'}).set_geometry('geom')
         gdf1.to_file(file_geojson_out, driver='GeoJSON')
-        for i in range(0, len(gdf1)-1):
-            gdf1.loc[i, 'lon'] = gdf1.geometry.x.iloc[i]
-            gdf1.loc[i, 'lat'] = gdf1.geometry.y.iloc[i]
+        # gdf1.to_file(file_geojson_out+"_", driver='CSV')
+        # gdf1.to_csv(file_geojson_out + "_", index=False)
+
+        # for i in range(0, len(gdf1)):
+        #     gdf1.loc[i, 'lon'] = gdf1.geometry.x.iloc[i]
+        #     gdf1.loc[i, 'lat'] = gdf1.geometry.y.iloc[i]
         log = set_logger(settings.WELL_FILE_LOG)
 
         log.info(gdf1)
@@ -48,17 +51,25 @@ async def well_reload():
             hash_object = hashlib.md5(str_name)
             hash_md5 = hash_object.hexdigest()
             str_name_area = str(gdf1.loc[i, name_area]).encode()
+            d_lon = gdf1.geometry.x.iloc[i]
+            d_lat = gdf1.geometry.y.iloc[i]
+            print(f"{i} , well {str_name}, pl: {str_name_area}")
+
             well_table = WELL(
                 name_ru=str_name,
-                lon=gdf1.loc[i, 'lon'],
-                lat=gdf1.loc[i, 'lat'],
+                lon=d_lon,
+                lat=d_lat,
                 crs=crs_out,
                 hash=hash_md5,
                 area=str_name_area
             )
             await well_table.upsert()
+
+
+            log.info(f"well {str_name}, pl: {str_name_area}")
             # print(gdf1.loc[i, 'name_ru'])
         count = await WELL.objects.count()
+        content = {"msg": "Success", "count": count}
         log.info(f"Total ngo count {count}")
     except Exception as e:
         content = {"msg": f"reload fail. can't read file {file_geojson}"}

@@ -17,8 +17,9 @@ class BaseClass(ormar.Model):
 
     id: int = ormar.Integer(primary_key=True)
     name_ru: str = ormar.String(max_length=255)
-    lat: float = ormar.Float(scale=6, precision=8)
-    lon: float = ormar.Float(scale=6, precision=8)
+    # lat: float = ormar.Float(scale=6, precision=8)
+    lat: float = ormar.Float(precision=21, scale=18)
+    lon: float = ormar.Float(precision=21, scale=18)
     crs: int = ormar.Integer()
     hash: str = ormar.String(max_length=255)
     create_date: datetime = ormar.DateTime(default=datetime.now)
