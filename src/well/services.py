@@ -53,7 +53,8 @@ async def well_reload():
             str_name_area = str(gdf1.loc[i, name_area]).encode()
             d_lon = gdf1.geometry.x.iloc[i]
             d_lat = gdf1.geometry.y.iloc[i]
-            print(f"{i} , well {str_name}, pl: {str_name_area}")
+            # print(f"{i} , well {str_name}, pl: {str_name_area}")
+            print(f"{i} ")
 
             well_table = WELL(
                 name_ru=str_name,
@@ -64,7 +65,6 @@ async def well_reload():
                 area=str_name_area
             )
             await well_table.upsert()
-
 
             log.info(f"well {str_name}, pl: {str_name_area}")
             # print(gdf1.loc[i, 'name_ru'])
