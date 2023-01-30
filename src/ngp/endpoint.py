@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.schemas import NGP
+from src.schemas import s_ngp
 from src.ngp.services import ngp_reload, ngp_get_all, ngp_get_all_count, ngp_get_geojson_file
 
 # from src.apps.field.services import ngp_reload, ngp_get_all, ngp_get_geojson_file, ngp_get_all_count
@@ -24,7 +24,7 @@ async def ngp_reload_get():
 
 @ngp_router.get(path='/',
                    status_code=200,
-                   response_model=List[NGP],
+                   response_model=List[s_ngp],
                    name='Получить список НГ Провинций',
                    tags=['НГ Провинции'],
                    description='Получает список НГ Провинций и координаты центров')

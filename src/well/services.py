@@ -54,7 +54,7 @@ async def well_reload():
             d_lon = gdf1.geometry.x.iloc[i]
             d_lat = gdf1.geometry.y.iloc[i]
             # print(f"{i} , well {str_name}, pl: {str_name_area}")
-            print(f"{i} ")
+            # print(f"{i} ")
 
             well_table = WELL(
                 name_ru=str_name,

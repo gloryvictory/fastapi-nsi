@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.schemas import LU
+from src.schemas import s_lu
 from src.lu.services import lu_reload, lu_get_all, lu_get_all_count, lu_get_geojson_file
 
 # from src.apps.field.services import lu_reload, lu_get_all, lu_get_geojson_file, lu_get_all_count
@@ -24,7 +24,7 @@ async def lu_reload_get():
 
 @lu_router.get(path='/',
                    status_code=200,
-                   response_model=List[LU],
+                   response_model=List[s_lu],
                    name='Получить список Лицензионных участков',
                    tags=['Лицензионные участки'],
                    description='Получает список Лицензионных участков и координаты центров')

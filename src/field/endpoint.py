@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.schemas import Field
+from src.schemas import s_field
 from .services import fields_reload, fields_get_all, fields_get_geojson_file, fields_get_all_count
 
 fields_router = APIRouter()
@@ -11,7 +11,7 @@ fields_router = APIRouter()
 
 @fields_router.get(path='/',
                    status_code=200,
-                   response_model=List[Field],
+                   response_model=List[s_field],
                    name='Получить список Месторождений',
                    tags=['Месторождения'],
                    description='Получает список месторождений и координаты центров')

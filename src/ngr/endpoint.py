@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.schemas import NGR
+from src.schemas import s_ngr
 from src.ngr.services import ngr_reload, ngr_get_all, ngr_get_all_count, ngr_get_geojson_file
 
 ngr_router = APIRouter()
@@ -21,7 +21,7 @@ async def ngr_reload_get():
 
 @ngr_router.get(path='/',
                 status_code=200,
-                response_model=List[NGR],
+                response_model=List[s_ngr],
                 name='Получить список НГ Районов',
                 tags=['НГ Районы'],
                 description='Получает список НГ Районов и координаты центров')

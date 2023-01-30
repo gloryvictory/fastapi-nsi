@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.schemas import NGO
+from src.schemas import s_ngo
 from src.ngo.services import ngo_reload, ngo_get_all, ngo_get_all_count, ngo_get_geojson_file
 
 # from src.apps.field.services import ngo_reload, ngo_get_all, ngo_get_geojson_file, ngo_get_all_count
@@ -24,7 +24,7 @@ async def ngo_reload_get():
 
 @ngo_router.get(path='/',
                    status_code=200,
-                   response_model=List[NGO],
+                   response_model=List[s_ngo],
                    name='Получить список НГ Областей',
                    tags=['НГ Области'],
                    description='Получает список НГ Областей и координаты центров')

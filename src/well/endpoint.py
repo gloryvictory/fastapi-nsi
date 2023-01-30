@@ -3,7 +3,8 @@ from typing import List
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
-from src.models import WELL
+from src.schemas import s_well
+# from src.models import WELL
 from src.well.services import well_reload, well_get_all, well_get_all_count, well_get_geojson_file
 
 # from src.ngo.services import ngo_reload, ngo_get_all, ngo_get_all_count, ngo_get_geojson_file
@@ -25,10 +26,10 @@ async def ngo_reload_get():
 
 @well_router.get(path='/',
                    status_code=200,
-                   response_model=List[WELL],
+                   response_model=List[s_well],
                    name='Получить список скважин',
                    tags=['Скважины'],
-                   description='Получает список НГ Областей и координаты центров')
+                   description='Получает список Скважин и координаты')
 async def ngo_get():
     content = await well_get_all()
     return content

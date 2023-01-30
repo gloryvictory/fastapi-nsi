@@ -11,23 +11,27 @@ class BaseModel_NSI(BaseModel):
     # create_date: datetime
 
 
-class Field(BaseModel_NSI):
+class s_field(BaseModel_NSI):
     pass
 
 
-class LU(BaseModel_NSI):
+class s_lu(BaseModel_NSI):
     nom_lic: str
     pass
 
 
-class NGO(BaseModel_NSI):
+class s_ngo(BaseModel_NSI):
     pass
 
 
-class NGP(BaseModel_NSI):
+class s_ngp(BaseModel_NSI):
     pass
 
 
-class NGR(BaseModel_NSI):
+class s_ngr(BaseModel_NSI):
     pass
 
+
+class s_well(BaseModel_NSI):
+    area: str
+    pass
