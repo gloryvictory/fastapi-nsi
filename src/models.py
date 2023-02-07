@@ -63,3 +63,9 @@ class WELL(BaseClass):
         pass
 
     area: str = ormar.String(max_length=255)
+
+
+class AREA(BaseClass):
+    class Meta(MainMeta):
+        tablename = "area"
+        pass

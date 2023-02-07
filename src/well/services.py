@@ -4,7 +4,6 @@ import hashlib
 from typing import Any
 
 import geopandas
-
 from src.models import WELL
 from src import settings
 from src.log import set_logger
@@ -20,20 +19,9 @@ async def well_reload():
 
     try:
         gdf = geopandas.read_file(file_geojson, driver="GeoJSON")
-        # MultiPolygon to Polygon
-        # gdf = gdf.explode(column='geometry', ignore_index=True, index_parts=False)
-        # Объединяем два контура одного месторождения с одинаковым наименованием
-        # gdf = gdf.dissolve(by=name_well, as_index=False)
-        # gdf.envelope
-        # gdf.to_crs('epsg:32663').centroid.to_crs(crs_out)
-        # gdf['centroid'] = gdf.centroid
-        #
-        # gdf = gdf.to_crs(crs=crs_out)
         gdf1 = gdf.to_crs(crs=crs_out)
-        # gdf1 = gdf[[name_well, name_area]]
-        # gdf1.set_geometry("centroid")
-        # gdf1 = gdf1.rename(columns={'centroid': 'geom'}).set_geometry('geom')
         gdf1.to_file(file_geojson_out, driver='GeoJSON')
+
         # gdf1.to_file(file_geojson_out+"_", driver='CSV')
         # gdf1.to_csv(file_geojson_out + "_", index=False)
 
@@ -46,15 +34,26 @@ async def well_reload():
 
         await WELL.objects.delete(each=True)
 
-        for i in range(0, len(gdf1)):
-            str_name = str(gdf1.loc[i, name_well]).encode()
-            hash_object = hashlib.md5(str_name)
+        cnt_all = len(gdf1)
+
+        cnt_areas = len(gdf1['pl'].unique())
+        print(f"Count of AREAS : {cnt_areas}")
+
+        for i in range(0, cnt_all):
+            print(f"{i}  of {cnt_all}")
+            # str_name = str(gdf1.loc[i, name_well]).encode()
+            # str_name_area = str(gdf1.loc[i, name_area]).encode()
+            # Получаем уникальное сочетание Площадь + №скважины
+            str_name = str(gdf1.loc[i, name_well])
+            str_name_area = str(gdf1.loc[i, name_area])
+
+            str_name_well_uniq = str(str_name_area + " " + str_name).encode()
+            hash_object = hashlib.md5(str_name_well_uniq)
             hash_md5 = hash_object.hexdigest()
-            str_name_area = str(gdf1.loc[i, name_area]).encode()
+
             d_lon = gdf1.geometry.x.iloc[i]
             d_lat = gdf1.geometry.y.iloc[i]
             # print(f"{i} , well {str_name}, pl: {str_name_area}")
-            # print(f"{i} ")
 
             well_table = WELL(
                 name_ru=str_name,
@@ -68,7 +67,11 @@ async def well_reload():
 
             log.info(f"well {str_name}, pl: {str_name_area}")
             # print(gdf1.loc[i, 'name_ru'])
+
         count = await WELL.objects.count()
+
+
+
         content = {"msg": "Success", "count": count}
         log.info(f"Total ngo count {count}")
     except Exception as e:
@@ -87,7 +90,7 @@ async def well_get_all():
     try:
         well_all = await WELL.objects.all()
 
-        log.info("ngo load successfully")
+        log.info("wells load successfully")
         return well_all
     except Exception as e:
         content = {"msg": f"reload fail. can't read ngo from database {WELL.Meta.tablename}"}

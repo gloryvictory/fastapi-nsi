@@ -35,3 +35,7 @@ class s_ngr(BaseModel_NSI):
 class s_well(BaseModel_NSI):
     area: str
     pass
+
+
+class s_area(BaseModel_NSI):
+    pass

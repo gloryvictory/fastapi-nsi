@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from src.area.endpoint import area_router
 from src.field.endpoint import fields_router
 from src.lu.endpoint import lu_router
 from src.ngo.endpoint import ngo_router
@@ -22,3 +23,4 @@ api_router.include_router(ngo_router, prefix="/ngo", tags=["НГ Области"
 api_router.include_router(ngr_router, prefix="/ngr", tags=["НГ Районы"])  # , description=''
 api_router.include_router(lu_router, prefix="/lu", tags=["Лицензионные участки"])  # , description=''
 api_router.include_router(well_router, prefix="/well", tags=["Скважины"])  # , description=''
+api_router.include_router(area_router, prefix="/area", tags=["Площади"])  # , description=''
