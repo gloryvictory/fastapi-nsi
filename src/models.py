@@ -64,8 +64,12 @@ class WELL(BaseClass):
 
     area: str = ormar.String(max_length=255)
 
-
-class AREA(BaseClass):
+# Немного по другим правилам...
+class AREA(ormar.Model):
     class Meta(MainMeta):
         tablename = "area"
         pass
+
+    id: int = ormar.Integer(primary_key=True)
+    name_ru: str = ormar.String(max_length=255)
+    create_date: datetime = ormar.DateTime(default=datetime.now)

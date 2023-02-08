@@ -13,16 +13,6 @@ from src.well.services import well_reload, well_get_all, well_get_all_count, wel
 well_router = APIRouter()
 
 
-@well_router.get(path='/reload',
-                 status_code=200,
-                 name='Обновить список Скважин',
-                 tags=['Скважины'],
-                 description='Загружает список Скважин из GeoJSON (файла или сервиса)')
-async def ngo_reload_get():
-    content_json = await well_reload()
-    return JSONResponse(content=content_json)
-
-
 @well_router.get(path='/',
                  status_code=200,
                  response_model=List[s_well],
@@ -34,8 +24,6 @@ async def ngo_get():
     return content
 
 
-#
-#
 @well_router.get(path='/count',
                  status_code=200,
                  name='Получить Скважины',
@@ -47,6 +35,16 @@ async def ngo_get_count():
 
 
 #
+
+@well_router.get(path='/reload',
+                 status_code=200,
+                 name='Обновить список Скважин',
+                 tags=['Скважины'],
+                 description='Загружает список Скважин из GeoJSON (файла или сервиса)')
+async def ngo_reload_get():
+    content_json = await well_reload()
+    return JSONResponse(content=content_json)
+
 
 @well_router.get(path='/geojson',
                  status_code=200,

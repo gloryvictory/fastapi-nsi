@@ -37,5 +37,6 @@ class s_well(BaseModel_NSI):
     pass
 
 
-class s_area(BaseModel_NSI):
+class s_area(BaseModel):
+    name_ru: str
     pass

@@ -9,16 +9,6 @@ from src.ngr.services import ngr_reload, ngr_get_all, ngr_get_all_count, ngr_get
 ngr_router = APIRouter()
 
 
-@ngr_router.get(path='/reload',
-                status_code=200,
-                name='Обновить список НГ Районов',
-                tags=['НГ Районы'],
-                description='Загружает список НГ Районов и координаты центров из GeoJSON (файла или сервиса)')
-async def ngr_reload_get():
-    content_json = await ngr_reload()
-    return JSONResponse(content=content_json)
-
-
 @ngr_router.get(path='/',
                 status_code=200,
                 response_model=List[s_ngr],
@@ -39,6 +29,16 @@ async def ngr_get():
 async def ngr_get_count():
     content = await ngr_get_all_count()
     return content
+
+
+@ngr_router.get(path='/reload',
+                status_code=200,
+                name='Обновить список НГ Районов',
+                tags=['НГ Районы'],
+                description='Загружает список НГ Районов и координаты центров из GeoJSON (файла или сервиса)')
+async def ngr_reload_get():
+    content_json = await ngr_reload()
+    return JSONResponse(content=content_json)
 
 
 @ngr_router.get(path='/geojson',

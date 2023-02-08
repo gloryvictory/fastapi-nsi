@@ -17,10 +17,11 @@ def ping():
     return {"msg": "pong!"}
 
 
-api_router.include_router(fields_router, prefix="/fields", tags=["Месторождения"])  # , description='Месторождения'
+
 api_router.include_router(ngp_router, prefix="/ngp", tags=["НГ Провинции"])  # , description=''
 api_router.include_router(ngo_router, prefix="/ngo", tags=["НГ Области"])  # , description=''
 api_router.include_router(ngr_router, prefix="/ngr", tags=["НГ Районы"])  # , description=''
+api_router.include_router(fields_router, prefix="/fields", tags=["Месторождения"])  # , description='Месторождения'
 api_router.include_router(lu_router, prefix="/lu", tags=["Лицензионные участки"])  # , description=''
-api_router.include_router(well_router, prefix="/well", tags=["Скважины"])  # , description=''
 api_router.include_router(area_router, prefix="/area", tags=["Площади"])  # , description=''
+api_router.include_router(well_router, prefix="/well", tags=["Скважины"])  # , description=''
