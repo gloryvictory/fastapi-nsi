@@ -1,6 +1,9 @@
 import os
 from time import strftime  # Load just the strftime Module from Time
 
+# from dotenv import load_dotenv
+# load_dotenv() # читаем из .env и устанавливаем переменные окружения
+
 API_VERSION = "/api/v1"
 
 DATETIME_CURRENT = str(strftime("%Y-%m-%d-%H-%M-%S"))
@@ -17,14 +20,14 @@ FOLDER_DATA = 'data'
 
 DB_SQLITE = "sqlite:///fastapi-nsi.db"
 # DB_SCHEMA = 'public'
-# DB_HOST = 'localhost'
-# DB_PORT = '5432'
-# DB_USER = 'geodex2'
-# DB_PASS = 'geodex2_password'
-# DB_NAME = 'geodex2'
-# DB_SCHEMA = 'geodex2'
+DB_HOST = os.getenv("DB_HOST", 'localhost')
+DB_PORT = os.getenv("DB_PORT", '5432')
+DB_USER = os.getenv("DB_USER", 'nsi')
+DB_PASS = os.getenv("DB_PASS", 'nsipwd')
+DB_NAME = os.getenv("DB_NAME", 'nsi')
+# DB_SCHEMA = os.getenv("DB_SCHEMA", 'geodex2')
 # postgresql://udatauser2:udatauser2pwd@localhost:5432/udatadb2
-# DB_DSN = f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+DB_DSN = f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 SERVER_HOST = os.getenv("SERVER_HOST", "0.0.0.0")
 SERVER_PORT = os.getenv("SERVER_PORT", 8000)
