@@ -115,3 +115,4 @@ ds.geojson
 #/src/data_load/
 #/src/data/NGP_test.geojson
 #/src/data/NGP.geojson
+/fastapi-nsi.db
