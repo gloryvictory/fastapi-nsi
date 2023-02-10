@@ -19,7 +19,7 @@ FOLDER_GEOJSON_OUT = 'geojson'
 FOLDER_DATA = 'data'
 
 DB_SQLITE = "sqlite:///fastapi-nsi.db"
-# DB_SCHEMA = 'public'
+DB_SCHEMA = 'nsi'
 DB_HOST = os.getenv("DB_HOST", 'localhost')
 DB_PORT = os.getenv("DB_PORT", '5432')
 DB_USER = os.getenv("DB_USER", 'nsi')

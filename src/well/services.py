@@ -44,10 +44,10 @@ async def well_reload():
             # str_name = str(gdf1.loc[i, name_well]).encode()
             # str_name_area = str(gdf1.loc[i, name_area]).encode()
             # Получаем уникальное сочетание Площадь + №скважины
-            str_name = str(gdf1.loc[i, name_well])
-            str_name_area = str(gdf1.loc[i, name_area])
+            str_name = str(gdf1.loc[i, name_well]).lower()
+            str_name_area = str(gdf1.loc[i, name_area]).lower()
 
-            str_name_well_uniq = str(str_name_area + " " + str_name).encode()
+            str_name_well_uniq = str(str_name_area + " " + str_name).lower().encode()
             hash_object = hashlib.md5(str_name_well_uniq)
             hash_md5 = hash_object.hexdigest()
 

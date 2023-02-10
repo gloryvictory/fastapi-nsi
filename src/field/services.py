@@ -44,7 +44,7 @@ async def fields_reload():
         await Field.objects.delete(each=True)
 
         for i in range(0, len(gdf1)):
-            str_name = str(gdf1.loc[i, name_field]).encode()
+            str_name = str(gdf1.loc[i, name_field]).lower().encode()
             hash_object = hashlib.md5(str_name)
             hash_md5 = hash_object.hexdigest()
             fields_table = Field(

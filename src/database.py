@@ -24,7 +24,9 @@ from src import settings
 # database = databases.Database(settings.DB_SQLITE)
 engine = sqlalchemy.create_engine(settings.DB_DSN)
 database = databases.Database(settings.DB_DSN)
-metadata = sqlalchemy.MetaData(schema="nsi")
+metadata = sqlalchemy.MetaData(schema=settings.DB_SCHEMA) # чтобы складывать в одну схему nsi
+
+
 
 # MetaData(schema="alpha")
 # 3. Database creation and tables creation

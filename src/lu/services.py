@@ -46,8 +46,8 @@ async def lu_reload():
         await LU.objects.delete(each=True)
 
         for i in range(0, len(gdf1)):
-            str_name = str(gdf1.loc[i, name_field]).encode()
-            str_nom_lic= str(gdf1.loc[i, nom_lic]).encode()
+            str_name = str(gdf1.loc[i, name_field]).lower().encode()
+            str_nom_lic= str(gdf1.loc[i, nom_lic]).lower().encode()
             hash_object = hashlib.md5(str_name)
             hash_md5 = hash_object.hexdigest()
             lu_table = LU(

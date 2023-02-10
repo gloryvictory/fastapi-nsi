@@ -27,9 +27,9 @@ async def area_reload():
         cnt_areas = len(gdf_area)
 
         for area_current in gdf_area:
-            print(f"{area_current}")
-            str_name_area = str(area_current)
 
+            str_name_area = str(area_current).lower()
+            print(f"{area_current}")
             area_table = AREA(
                 name_ru=str_name_area
             )
