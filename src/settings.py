@@ -35,8 +35,8 @@ SERVER_PORT = os.getenv("SERVER_PORT", 8000)
 
 CRS_OUT = 4326  # 4326 - WGS 84
 
-FIELDS_FILE_GEOJSON_IN = 'fields.geojson' # 'mest.geojson'
-FIELDS_FILE_GEOJSON_OUT = 'fields.geojson'
+FIELDS_FILE_GEOJSON_IN = 'FIELDS.geojson' # 'mest.geojson'
+FIELDS_FILE_GEOJSON_OUT = 'FIELDS.geojson'
 FIELDS_NAME_FIELD = 'name_ru'
 FIELDS_FILE_LOG = FIELDS_FILE_GEOJSON_IN + '.log'
 

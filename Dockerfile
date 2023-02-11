@@ -27,6 +27,12 @@ ENV SERVER_HOST="0.0.0.0"
 ENV PORT=8000
 ENV FOLDER_BASE=/app/src
 
+ENV DB_HOST=r48-vldb02.zsniigg.local
+ENV DB_PORT=5432
+ENV DB_NAME=nsi
+ENV DB_USER=nsi
+ENV DB_PASS=nsipwd
+ENV DB_SCHEMA=nsi
 
 RUN pip3 install -U pip
 

@@ -7,3 +7,10 @@ docker build . -t fastapi-web
 # docker run -p 8000:8000 fastapi-web
 # docker run -d -p 8000:8000 fastapi-web
 # docker rmi fastapi-web
+# docker ps
+# docker stop <container>
+# docker rm <container>
+# docker images
+# docker rmi <image>
+
+

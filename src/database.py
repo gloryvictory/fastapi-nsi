@@ -1,13 +1,15 @@
-# CREATE USER nsi WITH ENCRYPTED PASSWORD 'nsipass';
+# Базу создавать так
+# CREATE USER nsi WITH ENCRYPTED PASSWORD 'nsipwd';
 # CREATE DATABASE nsi WITH OWNER nsi;
 # GRANT ALL PRIVILEGES ON DATABASE nsi TO nsi;
+# \c nsi;
 # CREATE SCHEMA IF NOT EXISTS nsi AUTHORIZATION nsi;
 # SET search_path to nsi;
-#
+
+# Возможно пригодиться
 # GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO nsi;
 # GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO nsi;
 # GRANT ALL PRIVILEGES ON ALL FUNCTIONS  IN SCHEMA public TO nsi;
-# GRANT rds_superuser TO nsi;
 
 
 import databases

@@ -16,7 +16,7 @@ class BaseClass(ormar.Model):
         pass
 
     id: int = ormar.Integer(primary_key=True)
-    name_ru: str = ormar.String(max_length=255)
+    name_ru: str = ormar.String(max_length=255, index=True)
     # lat: float = ormar.Float(scale=6, precision=8)
     lat: float = ormar.Float(precision=21, scale=18)
     lon: float = ormar.Float(precision=21, scale=18)
@@ -62,7 +62,7 @@ class WELL(BaseClass):
         tablename = "well"
         pass
 
-    area: str = ormar.String(max_length=255)
+    area: str = ormar.String(max_length=255, index=True )
 
 # Немного по другим правилам...
 class AREA(ormar.Model):
@@ -71,5 +71,5 @@ class AREA(ormar.Model):
         pass
 
     id: int = ormar.Integer(primary_key=True)
-    name_ru: str = ormar.String(max_length=255)
+    name_ru: str = ormar.String(max_length=255, index=True )
     create_date: datetime = ormar.DateTime(default=datetime.now)
