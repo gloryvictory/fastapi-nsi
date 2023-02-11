@@ -1,0 +1,26 @@
+###
+GET http://127.0.0.1:8000/api/v1/well
+
+###
+GET http://127.0.0.1:8000/api/v1/area
+
+###
+GET http://127.0.0.1:8000/api/v1/ngp
+
+###
+GET http://127.0.0.1:8000/api/v1/ngo
+
+###
+GET http://127.0.0.1:8000/api/v1/ngr
+
+
+###
+GET http://127.0.0.1:8000/api/v1/fields
+
+###
+GET http://127.0.0.1:8000/api/v1/lu
+
+###
+GET http://127.0.0.1:8000/api/v1/well
+
+
