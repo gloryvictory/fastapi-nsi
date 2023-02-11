@@ -2,6 +2,8 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 
 from src import settings
 
@@ -11,6 +13,24 @@ from src.database import database, metadata, engine
 app = FastAPI()
 # root_path="/api/v1"
 # metadata.create_all(engine) # for first creatng objects
+
+origins = [
+    "http://r48-vapp-testsrv01.zsniigg.local",
+    "https://r48-vapp-testsrv01.zsniigg.local",
+    "http://localhost",
+    "http://localhost:8080",
+    "https://localhost",
+    "https://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 app.state.database = database
 

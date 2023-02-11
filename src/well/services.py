@@ -70,8 +70,6 @@ async def well_reload():
 
         count = await WELL.objects.count()
 
-
-
         content = {"msg": "Success", "count": count}
         log.info(f"Total ngo count {count}")
     except Exception as e:
@@ -108,7 +106,7 @@ async def well_get_all_count() -> dict[str, str | Any] | dict[str, str]:
         # table_exist = ngo.
         well_all_count = await WELL.objects.count()
 
-        log.info(f"ngo count load successfuly: {well_all_count}")
+        log.info(f"count load successfuly: {well_all_count}")
         content = {"msg": "Success", "count": well_all_count}
         return content
     except Exception as e:
@@ -135,3 +133,39 @@ async def well_get_geojson_file():
         # print(str_err)
         log.info(str_err)
         return content
+
+
+async def well_get_by_area(area: str):
+    content = {"msg": f"Unknown error"}
+    log = set_logger(settings.WELL_FILE_LOG)
+    print(area)
+    try:
+        well_all = await WELL.objects.all(WELL.area == area)
+
+        log.info("wells load successfully")
+        return well_all
+    except Exception as e:
+        content = {"msg": f"reload fail. can't read ngo from database {WELL.Meta.tablename}"}
+        str_err = "Exception occurred " + str(e)
+        print(str_err)
+        log.info(str_err)
+    return content
+
+
+async def well_get_area_count(area: str):
+    content = {"msg": f"Unknown error"}
+    log = set_logger(settings.WELL_FILE_LOG)
+
+    try:
+        # table_exist = ngo.
+        well_all = await WELL.objects.all(WELL.area == area)
+        well_all_count = len(well_all)
+        log.info(f"count load successfuly: {well_all_count}")
+        content = {"msg": "Success", "count": well_all_count}
+        return content
+    except Exception as e:
+        content = {"msg": f"reload fail. can't read count of ngo from database {WELL.Meta.tablename}"}
+        str_err = "Exception occurred " + str(e)
+        print(str_err)
+        log.info(str_err)
+    return content
