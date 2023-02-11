@@ -14,18 +14,16 @@ app = FastAPI()
 # root_path="/api/v1"
 # metadata.create_all(engine) # for first creatng objects
 
-origins = [
-    "http://r48-vapp-testsrv01.zsniigg.local",
-    "https://r48-vapp-testsrv01.zsniigg.local",
-    "http://localhost",
-    "http://localhost:8080",
-    "https://localhost",
-    "https://localhost:8080",
-]
+# origins = [
+#     "http://localhost",
+#     "http://localhost:8080",
+#     "https://localhost",
+#     "https://localhost:8080",
+# ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
