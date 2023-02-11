@@ -39,7 +39,28 @@ async def get_count():
     return content
 
 
-#
+
+@well_router.get(path="/{area}",
+                 status_code=200,
+                 response_model=List[s_well],
+                 name='Получить список скважин по запрашиваемой площади',
+                 tags=['Скважины'],
+                 description='Получает список Скважин и координаты  по конкретной площади'
+                 )
+async def get_by_area(area: str):
+    content = await well_get_by_area(area)
+    return content
+
+
+@well_router.get(path='/{area}/count',
+                 status_code=200,
+                 name='Получить кол-во Скважин по запрашиваемой Площади',
+                 tags=['Скважины'],
+                 description='Получает количество Скважинпо запрашиваемой Площади')
+async def get_by_area_count(area: str):
+    content = await well_get_area_count(area)
+    return content
+
 
 @well_router.get(path='/reload',
                  status_code=200,
@@ -60,24 +81,3 @@ async def get_geojson():
     content_json = await well_get_geojson_file()
     return JSONResponse(content=content_json)
 
-
-@well_router.get(path="/{area}",
-                 status_code=200,
-                 response_model=List[s_well],
-                 name='Получить список скважин по запрашиваемой площади',
-                 tags=['Скважины'],
-                 description='Получает список Скважин и координаты  по конкретной площади'
-                 )
-async def get_by_area(area: str):
-    content = await well_get_by_area(area)
-    return content
-
-
-@well_router.get(path='/{area}/count',
-                 status_code=200,
-                 name='Кол-во Скважин по запрашиваемой Площади',
-                 tags=['Скважины'],
-                 description='Получает количество Скважинпо запрашиваемой Площади')
-async def get_by_area_count(area: str):
-    content = await well_get_area_count(area)
-    return content
