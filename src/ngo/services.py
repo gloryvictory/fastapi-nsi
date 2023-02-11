@@ -25,14 +25,19 @@ async def ngo_reload():
         gdf = gdf.dissolve(by=name_field, as_index=False)
         # gdf.envelope
         # gdf.to_crs('epsg:32663').centroid.to_crs(crs_out)
-        gdf['centroid'] = gdf.centroid
 
-        gdf = gdf.to_crs(crs=crs_out)
+        gdf = gdf.to_crs(gdf.estimate_utm_crs())
+        gdf['centroid'] = gdf.centroid
+        # gdf = gdf.to_crs(crs=crs_out)
+        # print(gdf.crs, gdf.crs.is_projected)
 
         gdf1 = gdf[[name_field, 'centroid']]
         gdf1.set_geometry("centroid")
         gdf1 = gdf1.rename(columns={'centroid': 'geom'}).set_geometry('geom')
+        gdf1 = gdf1.to_crs(crs=crs_out)
+
         gdf1.to_file(file_geojson_out, driver='GeoJSON')
+
         for i in range(0, len(gdf1)):
             gdf1.loc[i, 'lon'] = gdf1.geometry.centroid.x.iloc[i]
             gdf1.loc[i, 'lat'] = gdf1.geometry.centroid.y.iloc[i]

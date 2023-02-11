@@ -26,16 +26,20 @@ async def lu_reload():
         gdf = gdf.explode(column='geometry', ignore_index=True, index_parts=False)
         # Объединяем два контура одного месторождения с одинаковым наименованием
         gdf = gdf.dissolve(by=name_field, as_index=False)
-        # gdf.envelope
-        # gdf.to_crs('epsg:32663').centroid.to_crs(crs_out)
+
+        gdf = gdf.to_crs(gdf.estimate_utm_crs())
         gdf['centroid'] = gdf.centroid
 
-        gdf = gdf.to_crs(crs=crs_out)
+
 
         gdf1 = gdf[[name_field, 'centroid', nom_lic]]
         gdf1.set_geometry("centroid")
         gdf1 = gdf1.rename(columns={'centroid': 'geom'}).set_geometry('geom')
+        gdf1 = gdf1.to_crs(crs=crs_out)
+
         gdf1.to_file(file_geojson_out, driver='GeoJSON')
+
+        cnt_gdf = len(gdf1)
         for i in range(0, len(gdf1)):
             gdf1.loc[i, 'lon'] = gdf1.geometry.centroid.x.iloc[i]
             gdf1.loc[i, 'lat'] = gdf1.geometry.centroid.y.iloc[i]
@@ -46,6 +50,7 @@ async def lu_reload():
         await LU.objects.delete(each=True)
 
         for i in range(0, len(gdf1)):
+            print(f"{i} of {cnt_gdf}")
             str_name = str(gdf1.loc[i, name_field]).lower().encode()
             str_nom_lic= str(gdf1.loc[i, nom_lic]).lower().encode()
             hash_object = hashlib.md5(str_name)

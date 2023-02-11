@@ -2,8 +2,10 @@
 # docker build . -t fastapi-web
 # docker run -d -p 8000:8000 fastapi-web
 
+# python:3.10.9-buster
+
 # pull the official docker image
-FROM python:3.10.9-buster
+FROM python:latest
 # FROM python:3.9.4-slim
 
 # set work directory
@@ -17,6 +19,9 @@ WORKDIR /app
 #ENV PYTHONPATH "${WORKDIR}:${PYTHONPATH}"
 
 #ENV PYTHONPATH="${PYTHONPATH}:/"
+#ENV PYTHONDONTWRITEBYTECODE 1
+#ENV PYTHONUNBUFFERED 1
+
 ENV PYTHONPATH="${PYTHONPATH}:/app"
 ENV SERVER_HOST="0.0.0.0"
 ENV PORT=8000
@@ -28,6 +33,7 @@ RUN pip3 install -U pip
 # install dependencies
 COPY requirements.txt .
 
+# RUN python.exe -m pip install --default-timeout=1000  --upgrade pip
 RUN pip3 install --no-cache-dir --upgrade  -r requirements.txt
 
 # copy project
