@@ -2,6 +2,8 @@ from typing import List
 
 from fastapi import APIRouter
 from starlette.responses import JSONResponse
+# from fastapi_cache.decorator import cache
+
 
 from src.schemas import s_well
 # from src.models import WELL
@@ -14,12 +16,14 @@ from src.well.services import well_reload, well_get_all, well_get_all_count, wel
 well_router = APIRouter()
 
 
+
 @well_router.get(path='/',
                  status_code=200,
                  response_model=List[s_well],
                  name='Получить список скважин',
                  tags=['Скважины'],
                  description='Получает список Скважин и координаты')
+# @cache(expire=30)
 async def get_data():
     content = await well_get_all()
     return content

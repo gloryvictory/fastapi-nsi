@@ -4,6 +4,11 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
+# pip install fastapi-cache2[redis]
+# from fastapi_cache import FastAPICache
+# from fastapi_cache.backends.redis import RedisBackend
+# from redis import asyncio as aioredis
+
 
 from src import settings
 
@@ -53,6 +58,8 @@ app.include_router(api_router)
 
 @app.on_event("startup")
 async def startup() -> None:
+    # redis = aioredis.from_url("redis://localhost", encoding="utf8", decode_responses=True)
+    # FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
     database_ = app.state.database
     metadata.create_all(engine)
     if not database_.is_connected:
